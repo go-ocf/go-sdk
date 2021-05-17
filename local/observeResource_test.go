@@ -6,7 +6,7 @@ import (
 	"testing"
 	"time"
 
-	kitNetCoap "github.com/plgd-dev/kit/net/coap"
+	kitNetCoap "github.com/plgd-dev/sdk/pkg/net/coap"
 	"github.com/plgd-dev/sdk/test"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"

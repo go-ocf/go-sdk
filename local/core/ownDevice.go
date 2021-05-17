@@ -7,7 +7,7 @@ import (
 	"fmt"
 
 	kitNet "github.com/plgd-dev/kit/net"
-	kitNetCoap "github.com/plgd-dev/kit/net/coap"
+	kitNetCoap "github.com/plgd-dev/sdk/pkg/net/coap"
 	"github.com/plgd-dev/sdk/schema"
 	"github.com/plgd-dev/sdk/schema/acl"
 	"github.com/plgd-dev/sdk/schema/cloud"

@@ -6,8 +6,8 @@ import (
 	"sync"
 
 	codecOcf "github.com/plgd-dev/kit/codec/ocf"
-	kitNetCoap "github.com/plgd-dev/kit/net/coap"
 	"github.com/plgd-dev/sdk/local/core"
+	kitNetCoap "github.com/plgd-dev/sdk/pkg/net/coap"
 )
 
 func (c *Client) ObserveResource(

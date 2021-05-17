@@ -52,7 +52,7 @@ func NewTestClient() *local.Client {
 	c, err := local.NewClientFromConfig(&local.Config{
 		KeepAliveConnectionTimeoutSeconds: 1,
 		ObserverPollingIntervalSeconds:    1,
-	}, appCallback, func(error) {})
+	}, appCallback, test.NewIdentityCertificateSigner, func(error) {})
 	if err != nil {
 		panic(err)
 	}
@@ -83,7 +83,7 @@ func NewTestSecureClient() (*local.Client, error) {
 	client, err := local.NewClientFromConfig(&cfg, &testSetupSecureClient{
 		mfgCA:   mfgCA,
 		mfgCert: mfgCert,
-	}, func(err error) { fmt.Print(err) },
+	}, test.NewIdentityCertificateSigner, func(err error) { fmt.Print(err) },
 	)
 	if err != nil {
 		return nil, err

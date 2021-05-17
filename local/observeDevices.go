@@ -7,8 +7,8 @@ import (
 
 	"github.com/gofrs/uuid"
 	"github.com/plgd-dev/go-coap/v2/udp/client"
-	"github.com/plgd-dev/kit/net/coap"
 	"github.com/plgd-dev/sdk/local/core"
+	"github.com/plgd-dev/sdk/pkg/net/coap"
 	"github.com/plgd-dev/sdk/schema"
 	"go.uber.org/atomic"
 )

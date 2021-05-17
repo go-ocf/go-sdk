@@ -3,9 +3,9 @@ package local
 import (
 	"context"
 
-	"github.com/plgd-dev/kit/net/coap"
 	"github.com/plgd-dev/kit/sync"
 	"github.com/plgd-dev/sdk/local/core"
+	"github.com/plgd-dev/sdk/pkg/net/coap"
 	"github.com/plgd-dev/sdk/schema"
 )
 

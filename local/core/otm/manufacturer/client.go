@@ -9,9 +9,9 @@ import (
 
 	"github.com/pion/dtls/v2"
 	kitNet "github.com/plgd-dev/kit/net"
-	"github.com/plgd-dev/kit/net/coap"
-	kitNetCoap "github.com/plgd-dev/kit/net/coap"
 	kitSecurity "github.com/plgd-dev/kit/security"
+	"github.com/plgd-dev/sdk/pkg/net/coap"
+	kitNetCoap "github.com/plgd-dev/sdk/pkg/net/coap"
 	"github.com/plgd-dev/sdk/schema"
 )
 

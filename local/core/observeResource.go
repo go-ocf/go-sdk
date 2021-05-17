@@ -7,7 +7,7 @@ import (
 
 	"github.com/gofrs/uuid"
 	"github.com/plgd-dev/kit/codec/ocf"
-	kitNetCoap "github.com/plgd-dev/kit/net/coap"
+	kitNetCoap "github.com/plgd-dev/sdk/pkg/net/coap"
 	"github.com/plgd-dev/sdk/schema"
 	"go.uber.org/atomic"
 )

@@ -6,10 +6,13 @@ import (
 	"crypto/x509"
 	"fmt"
 	"net/url"
+	"strings"
 
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/credentials"
 
+	"github.com/grpc-ecosystem/go-grpc-middleware/util/metautils"
 	"github.com/plgd-dev/kit/security"
 	"github.com/plgd-dev/sdk/local/core"
 	justworks "github.com/plgd-dev/sdk/local/core/otm/just-works"
@@ -18,7 +21,6 @@ import (
 	"github.com/gofrs/uuid"
 	"github.com/plgd-dev/cloud/certificate-authority/pb"
 	caSigner "github.com/plgd-dev/cloud/certificate-authority/signer"
-	kitNetGrpc "github.com/plgd-dev/kit/net/grpc"
 )
 
 type deviceOwnershipBackend struct {
@@ -205,8 +207,30 @@ func (o *deviceOwnershipBackend) setManufacturerCertificate(ctx context.Context,
 	return nil
 }
 
+var (
+	headerAuthorize = "authorization"
+)
+
+// TokenFromOutgoingMD extracts token stored by CtxWithToken.
+func TokenFromOutgoingMD(ctx context.Context) (string, error) {
+	expectedScheme := "bearer"
+	val := metautils.ExtractOutgoing(ctx).Get(headerAuthorize)
+	if val == "" {
+		return "", grpc.Errorf(codes.Unauthenticated, "Request unauthenticated with "+expectedScheme)
+
+	}
+	splits := strings.SplitN(val, " ", 2)
+	if len(splits) < 2 {
+		return "", grpc.Errorf(codes.Unauthenticated, "Bad authorization string")
+	}
+	if strings.EqualFold(splits[0], expectedScheme) {
+		return "", grpc.Errorf(codes.Unauthenticated, "Request unauthenticated with "+expectedScheme)
+	}
+	return splits[1], nil
+}
+
 func (o *deviceOwnershipBackend) Initialization(ctx context.Context) error {
-	token, err := kitNetGrpc.TokenFromOutgoingMD(ctx)
+	token, err := TokenFromOutgoingMD(ctx)
 	if err != nil {
 		return err
 	}

@@ -11,7 +11,7 @@ import (
 	"github.com/plgd-dev/go-coap/v2/udp/client"
 	udpMessage "github.com/plgd-dev/go-coap/v2/udp/message"
 	"github.com/plgd-dev/go-coap/v2/udp/message/pool"
-	kitNetCoap "github.com/plgd-dev/kit/net/coap"
+	kitNetCoap "github.com/plgd-dev/sdk/pkg/net/coap"
 )
 
 // See the section 10.4 on the line 2482 of the Core specification:

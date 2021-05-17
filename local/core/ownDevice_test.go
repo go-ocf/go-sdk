@@ -6,9 +6,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/plgd-dev/kit/net/coap"
 	"github.com/plgd-dev/sdk/local/core"
 	ocf "github.com/plgd-dev/sdk/local/core"
+	"github.com/plgd-dev/sdk/pkg/net/coap"
 	"github.com/plgd-dev/sdk/schema"
 	"github.com/plgd-dev/sdk/test"
 	"github.com/stretchr/testify/require"

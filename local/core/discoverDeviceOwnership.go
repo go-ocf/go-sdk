@@ -10,7 +10,7 @@ import (
 	"github.com/plgd-dev/go-coap/v2/udp/message/pool"
 
 	"github.com/plgd-dev/kit/codec/ocf"
-	kitNetCoap "github.com/plgd-dev/kit/net/coap"
+	kitNetCoap "github.com/plgd-dev/sdk/pkg/net/coap"
 	"github.com/plgd-dev/sdk/schema"
 )
 

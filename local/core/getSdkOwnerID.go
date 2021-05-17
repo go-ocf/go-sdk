@@ -4,7 +4,7 @@ import (
 	"crypto/x509"
 	"fmt"
 
-	kitNetCoap "github.com/plgd-dev/kit/net/coap"
+	kitNetCoap "github.com/plgd-dev/sdk/pkg/net/coap"
 )
 
 func getSdkOwnerID(getCertificate GetCertificateFunc) (string, error) {

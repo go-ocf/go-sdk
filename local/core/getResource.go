@@ -5,7 +5,7 @@ import (
 	"fmt"
 
 	"github.com/plgd-dev/kit/codec/ocf"
-	"github.com/plgd-dev/kit/net/coap"
+	"github.com/plgd-dev/sdk/pkg/net/coap"
 	"github.com/plgd-dev/sdk/schema"
 )
 

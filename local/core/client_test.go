@@ -13,12 +13,11 @@ import (
 	"github.com/pion/dtls/v2"
 	"github.com/stretchr/testify/require"
 
-	"github.com/plgd-dev/kit/net/coap"
 	"github.com/plgd-dev/kit/security"
-	ocfSigner "github.com/plgd-dev/kit/security/signer"
 	ocf "github.com/plgd-dev/sdk/local/core"
 	justworks "github.com/plgd-dev/sdk/local/core/otm/just-works"
 	"github.com/plgd-dev/sdk/local/core/otm/manufacturer"
+	"github.com/plgd-dev/sdk/pkg/net/coap"
 	"github.com/plgd-dev/sdk/schema"
 	"github.com/plgd-dev/sdk/test"
 )
@@ -77,7 +76,7 @@ func NewTestSecureClientWithCert(cert tls.Certificate, disableDTLS, disableTCPTL
 
 	notBefore := time.Now()
 	notAfter := notBefore.Add(time.Hour * 86400)
-	signer := ocfSigner.NewIdentityCertificateSigner(identityIntermediateCA, identityIntermediateCAKey, notBefore, notAfter)
+	signer := test.NewIdentityCertificateSigner(identityIntermediateCA, identityIntermediateCAKey, notBefore, notAfter)
 
 	var manOpts []manufacturer.OptionFunc
 	if disableDTLS {

@@ -9,8 +9,8 @@ import (
 
 	"github.com/pion/dtls/v2"
 	"github.com/plgd-dev/kit/net"
-	"github.com/plgd-dev/kit/net/coap"
-	kitNetCoap "github.com/plgd-dev/kit/net/coap"
+	"github.com/plgd-dev/sdk/pkg/net/coap"
+	kitNetCoap "github.com/plgd-dev/sdk/pkg/net/coap"
 	"github.com/plgd-dev/sdk/schema"
 )
 

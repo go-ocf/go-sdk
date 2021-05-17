@@ -8,7 +8,7 @@ import (
 
 	"github.com/gofrs/uuid"
 	"github.com/plgd-dev/kit/log"
-	kitNetCoap "github.com/plgd-dev/kit/net/coap"
+	kitNetCoap "github.com/plgd-dev/sdk/pkg/net/coap"
 
 	kitStrings "github.com/plgd-dev/kit/strings"
 	"github.com/plgd-dev/sdk/local/core"

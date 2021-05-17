@@ -2,6 +2,7 @@ package local
 
 import (
 	"context"
+	"crypto"
 	"crypto/tls"
 	"crypto/x509"
 	"fmt"
@@ -14,8 +15,11 @@ import (
 	"github.com/google/uuid"
 	"github.com/karrick/tparse/v2"
 	"github.com/plgd-dev/kit/security"
-	ocfSigner "github.com/plgd-dev/kit/security/signer"
 )
+
+type Signer = interface {
+	Sign()
+}
 
 type DeviceOwnershipSDKConfig struct {
 	ID         string
@@ -36,7 +40,7 @@ type deviceOwnershipSDK struct {
 }
 
 func NewDeviceOwnershipSDKFromConfig(app ApplicationCallback, dialTLS core.DialTLS,
-	dialDLTS core.DialDTLS, cfg *DeviceOwnershipSDKConfig) (*deviceOwnershipSDK, error) {
+	dialDLTS core.DialDTLS, cfg *DeviceOwnershipSDKConfig, createSigner func(caCert []*x509.Certificate, caKey crypto.PrivateKey, validNotBefore time.Time, validNotAfter time.Time) core.CertificateSigner) (*deviceOwnershipSDK, error) {
 	certExpiry := time.Hour * 24 * 365 * 10
 	var err error
 	if cfg.CertExpiry != nil {
@@ -54,11 +58,11 @@ func NewDeviceOwnershipSDKFromConfig(app ApplicationCallback, dialTLS core.DialT
 		return nil, fmt.Errorf("invalid ID for device ownership SDK: %w", err)
 	}
 
-	return NewDeviceOwnershipSDK(app, uid.String(), dialTLS, dialDLTS, &signerCert, cfg.ValidFrom, certExpiry)
+	return NewDeviceOwnershipSDK(app, uid.String(), dialTLS, dialDLTS, &signerCert, cfg.ValidFrom, certExpiry, createSigner)
 }
 
 func NewDeviceOwnershipSDK(app ApplicationCallback, sdkDeviceID string, dialTLS core.DialTLS,
-	dialDTLS core.DialDTLS, signerCert *tls.Certificate, validFrom string, certExpiry time.Duration) (*deviceOwnershipSDK, error) {
+	dialDTLS core.DialDTLS, signerCert *tls.Certificate, validFrom string, certExpiry time.Duration, createSigner func(caCert []*x509.Certificate, caKey crypto.PrivateKey, validNotBefore time.Time, validNotAfter time.Time) core.CertificateSigner) (*deviceOwnershipSDK, error) {
 	if validFrom == "" {
 		validFrom = "now-1m"
 	}
@@ -79,7 +83,7 @@ func NewDeviceOwnershipSDK(app ApplicationCallback, sdkDeviceID string, dialTLS 
 				return nil, fmt.Errorf("invalid validFrom(%v): %w", validFrom, err)
 			}
 			notAfter := notBefore.Add(certExpiry)
-			return ocfSigner.NewIdentityCertificateSigner(signerCAs, signerCert.PrivateKey, notBefore, notAfter), nil
+			return createSigner(signerCAs, signerCert.PrivateKey, notBefore, notAfter), nil
 		},
 		app:      app,
 		dialTLS:  dialTLS,
