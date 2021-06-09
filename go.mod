@@ -13,6 +13,6 @@ require (
 	github.com/plgd-dev/go-coap/v2 v2.2.0
 	github.com/plgd-dev/kit v0.0.0-20210517115726-034a62788317
 	github.com/stretchr/testify v1.6.1
-	go.uber.org/atomic v1.6.0
+	go.uber.org/atomic v1.8.0
 	google.golang.org/grpc v1.29.1
 )
